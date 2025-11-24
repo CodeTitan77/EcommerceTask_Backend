@@ -9,12 +9,12 @@ orderRouter.post("/order/newOrder",async(req,res)=>{
         const id=req.body.id;
   
         const user=await User.findById(id);
-        console.log(user);
-        console.log(req.body);
+       
+        // console.log(req.body);
        
         const nOrder= new Order({
             userId:id,
-            address:user.address?user.address:"delhi",
+            address:req.body.address,
             products:req.body.products,
             totalPrice:req.body.totalPrice
         })
@@ -32,7 +32,7 @@ orderRouter.post("/order/newOrder",async(req,res)=>{
 orderRouter.get("/order/:id",async(req,res)=>{
     try{
         const {id}=req.params;
-        const Norder= await Order.find({userId:id});
+        const Norder= await Order.find({userId:id}).populate('products.productId').populate('userId');
         return res.status(200).json({
             data:Norder
         });
