@@ -18,7 +18,7 @@ IntializeDatabase();
 const corsOptions = {
     origin: [
         "http://localhost:5173", 
-        "https://ecommerce-task-frontend.vercel.app/" 
+        "https://ecommerce-task-frontend.vercel.app" 
     ],
     credentials: true,
    
