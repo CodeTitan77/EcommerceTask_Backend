@@ -15,8 +15,15 @@ require("dotenv").config();
 IntializeDatabase();
 //  seedData(products);
 
-app.use(cors(
-));
+const corsOptions = {
+    origin: [
+        "http://localhost:5173", 
+        "https://ecommerce-task-frontend.vercel.app/" 
+    ],
+    credentials: true,
+   
+};
+app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cookieParser());
 
