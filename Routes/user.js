@@ -11,6 +11,29 @@ userRouter.get("/user/id/:id", async (req, res) => {
     return res.status(400).json({ message: error.message });
   }
 });
+userRouter.post("/user/:id/address/:addressId",async(req,res)=>{
+  try{
+     const {id,addressId}=req.params;
+    const{updatedAddressObject}=req.body;
+    const nuser= await User.findOneAndUpdate(
+      {_id:id, "address._id":addressId},
+      {  $set: {
+          "address.$": updatedAddressObject   
+        }
+      },
+      {
+        new:true,
+      },
+    );
+    return res.status(200).json({message:"address updated ",data:nuser});
+
+  }
+  catch(error){
+    return res.status(400).json({message:error.message});
+  }
+   
+
+});
 
 userRouter.get("/user/:email", async (req, res) => {
   const { email } = req.params;
